@@ -7,15 +7,19 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (isset($_SESSION['login']) and $_SESSION['login']) {
+  header('LOCATION:dashboard.php'); exit();
+}
+
 $email = $password = $error = '';
 
 if(isset($_POST['submit'])){
   require('db.php');
-  $email = $_POST['email']; $password = sha1($_POST['password']);
+  $email = ($_POST['email']); $password = sha1(($_POST['password']));
 
 
   $_SESSION['POST'] = $email;
-  $qz = "SELECT ID FROM CLIENT WHERE email='".$email."' AND password=UNHEX('".$password."')" ;
+  $qz = "SELECT ID, name, surname FROM CLIENT WHERE email='".$email."' AND password=UNHEX('".$password."')" ;
   $qz = str_replace("\'","",$qz);
   $result = mysqli_query($conn,$qz);
 
@@ -23,11 +27,12 @@ if(isset($_POST['submit'])){
   if ($result->num_rows != 0){
     $row = $result->fetch_assoc();
     $_SESSION['login'] = true; 
-    $_SESSION['name'] = $row[0]['name']; 
-    $_SESSION['surname'] = $row[0]['surname']; 
-    $_SESSION['id'] = $row[0]['id']; 
-
-    header('LOCATION:dashboard.html'); die();
+    $_SESSION['name'] = $row['name']; 
+    $_SESSION['surname'] = $row['surname']; 
+    $_SESSION['id'] = $row['ID']; 
+  
+    header('Cache-control: private');
+    header('LOCATION:dashboard.php'); exit();
   }
   else {
     header('LOCATION:index.php'); die();
