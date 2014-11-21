@@ -1,11 +1,15 @@
 (function(){
     var app = angular.module('email', []);
     app.controller('EmailController', function($scope){
-        $scope.edit = function(address, type)
+	$scope.mailbox = {};
+        $scope.mailbox.doClick = function(address, type)
         {
-            $scope.edit.address = address;
-            $scope.edit.type = type;
-            $scope.edit.show = true;
+            $scope.mailbox.address = address;
+            $scope.mailbox.type = type;
+            $scope.mailbox.edit = true;
+            $('html, body').animate({
+                scrollTop: $("#edit").offset().top
+            }, 2000);
         }
     });
 })();
