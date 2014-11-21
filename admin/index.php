@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
   $email = ($_POST['email']); $password = sha1(($_POST['password']));
 
 
-  $_SESSION['POST'] = $email;
+  
   $qz = "SELECT ID, name, surname FROM CLIENT WHERE email='".$email."' AND password=UNHEX('".$password."')" ;
   $qz = str_replace("\'","",$qz);
   $result = mysqli_query($conn,$qz);
@@ -35,6 +35,7 @@ if(isset($_POST['submit'])){
     header('LOCATION:dashboard.php'); exit();
   }
   else {
+    $_SESSION['POST'] = $email;
     header('LOCATION:index.php'); die();
     $error = "Invalid combination of email and password";
 
