@@ -15,7 +15,7 @@ if(isset($_POST['addSubmit'])){
 
   
   if(strlen($alias) < 2 || strlen($_POST['password']) < 4)
-    $result = 0;
+    $addItemSuccess = false;
   else
     $addItemSuccess = addEmailAdress($webhosting, $alias, $password, $type);
   
@@ -77,8 +77,11 @@ if ($delItemSuccess): ?>
 if (isset($editItemSuccess)) {
 if ($editItemSuccess): ?>
 
-<div>Emailova adresa <?php echo($old_alias . "@" . $_SESSION['domain']); ?> byla zmenena na <?php echo($alias . "@" . $_SESSION['domain']); ?></div>
-
+  <?php if ($old_alias == $alias): ?>
+    <div>Emailova adresa <?php echo($alias . "@" . $_SESSION['domain']); ?> byla upravena</div>
+  <?php else: ?>
+    <div>Emailova adresa <?php echo($old_alias . "@" . $_SESSION['domain']); ?> byla zmenena na <?php echo($alias . "@" . $_SESSION['domain']); ?></div>
+  <?php endif;  ?>
 <?php else: ?>
 
 <div>Emailovou adresu <?php echo($alias . "@" . $_SESSION['domain']); ?> se nepodarilo upravit</div>

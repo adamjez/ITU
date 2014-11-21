@@ -22,6 +22,12 @@ $EmailTypeDict = array (
 	3 => 'DEACTIVATED',
 );
 
+$StatusDict = array (
+	0 => 'active',
+	1 => 'inactive',
+);
+
+
 function getDefaultDomain($id)
 {
 	require('db.php');
@@ -76,6 +82,54 @@ function addEmailAdress($id, $alias, $password, $type)
 	return $conn->query($qz);
 }
 
+function addFtpAccount($id, $login, $password, $directory, $server)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "INSERT INTO FTPACCOUNT (login, password, directory, status, server, webhosting) 
+		   VALUES ('".$login."', '".$password."', '".$directory."', '0', '".$server."', '".$id."')";
+	return $conn->query($qz);
+}
+
+function getFtpAccounts($id)
+{
+	if($id == null)
+		return null;
+
+	require('db.php');
+	$qz = "SELECT login, status FROM FTPACCOUNT WHERE webhosting='".$id."' " ;
+	$result = mysqli_query($conn,$qz);
+
+	if ($result->num_rows != 0){
+		return resultToArray($result); 
+	}
+
+	return array();
+}
+
+function deleteFtpAccount($id, $login)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "DELETE FROM FTPACCOUNT WHERE webhosting='".$id."' AND login='".$login."' ";
+	return $conn->query($qz);
+}
+
+function changeFtpAccount($id, $login, $status)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "UPDATE FTPACCOUNT SET status = '".$status."' WHERE webhosting='".$id."' AND login='".$login."' ";
+	return $conn->query($qz);
+
+}
+
 function updateEmailAdress($id, $old_alias, $alias, $password, $type)
 {
 	if($id == null)
@@ -105,5 +159,17 @@ function resultToArray($result)
 		$rows[] = $row;
 	}
 	return $rows;
+}
+
+function generatePassword($length = 8) {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $count = mb_strlen($chars);
+
+    for ($i = 0, $result = ''; $i < $length; $i++) {
+        $index = rand(0, $count - 1);
+        $result .= mb_substr($chars, $index, 1);
+    }
+
+    return $result;
 }
 ?>
