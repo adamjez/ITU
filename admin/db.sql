@@ -21,7 +21,7 @@ CREATE TABLE `CLIENT` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `CLIENT` (`name`, `ID`, `surname`, `phone`, `email`, `password`) VALUES
-('Mark',	1,	'Otto',	'736182739',	'markotto@gmail.com',	UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'));
+('Mark',  1,  'Otto', '736182739',  'markotto@gmail.com', UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'));
 
 DROP TABLE IF EXISTS `DATABASE`;
 CREATE TABLE `DATABASE` (
@@ -63,19 +63,28 @@ CREATE TABLE `DOMAIN` (
   CONSTRAINT `DOMAIN_ibfk_1` FOREIGN KEY (`client`) REFERENCES `CLIENT` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `DOMAIN` (`name`, `expiration`, `state`, `tld`, `client`) VALUES
+('ITU', '2016-01-01', 0,  'org',  1),
+('domain',  '2015-01-01', 0,  'cz', 1);
 
 DROP TABLE IF EXISTS `FTPACCOUNT`;
 CREATE TABLE `FTPACCOUNT` (
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` binary(20) NOT NULL,
   `directory` varchar(32) COLLATE utf8_bin NOT NULL,
-  `permissions` int(32) NOT NULL,
+  `status` int(32) NOT NULL,
   `server` varchar(32) COLLATE utf8_bin NOT NULL,
   `webhosting` int(32) NOT NULL,
+  PRIMARY KEY (`login`,`webhosting`),
   KEY `webhosting` (`webhosting`),
   CONSTRAINT `FTPACCOUNT_ibfk_1` FOREIGN KEY (`webhosting`) REFERENCES `WEBHOSTING` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `FTPACCOUNT` (`login`, `password`, `directory`, `status`, `server`, `webhosting`) VALUES
+('admin', UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  '\\', 0,  'ftp.ITU.org',  1),
+('test',  UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  '\\', 1,  'ftp.ITU.org',  1),
+('test2', UNHEX('6973613230313400000000000000000000000000'),  'http://www.test.cz', 0,  'ftp.ITU.org',  1),
+('xjezad',  UNHEX('6973613230313400000000000000000000000000'),  'ftp.ITU.org',  0,  '', 1);
 
 DROP TABLE IF EXISTS `MAILBOX`;
 CREATE TABLE `MAILBOX` (
@@ -83,10 +92,20 @@ CREATE TABLE `MAILBOX` (
   `password` binary(20) NOT NULL,
   `type` int(8) NOT NULL,
   `webhosting` int(32) NOT NULL,
+  `used` int(32) NOT NULL DEFAULT '0',
+  `size` int(32) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`alias`,`webhosting`),
   KEY `webhosting` (`webhosting`),
   CONSTRAINT `MAILBOX_ibfk_1` FOREIGN KEY (`webhosting`) REFERENCES `WEBHOSTING` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `MAILBOX` (`alias`, `password`, `type`, `webhosting`, `used`, `size`) VALUES
+('admin', UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  0,  1,  60, 100),
+('info',  UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  0,  1,  95, 100),
+('test',  UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  1,  1,  20, 100),
+('test1', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
+('test2', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
+('test3', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100);
 
 DROP TABLE IF EXISTS `WEBHOSTING`;
 CREATE TABLE `WEBHOSTING` (
@@ -100,5 +119,7 @@ CREATE TABLE `WEBHOSTING` (
   CONSTRAINT `WEBHOSTING_ibfk_1` FOREIGN KEY (`client`) REFERENCES `CLIENT` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `WEBHOSTING` (`id`, `expiration`, `type`, `state`, `client`) VALUES
+(1, '2016-01-01', 1,  1,  1);
 
--- 2014-11-16 20:51:09
+-- 2014-11-21 16:22:43
