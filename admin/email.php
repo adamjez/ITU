@@ -9,20 +9,26 @@ $webhosting = getWebHosting($_SESSION['id']);
 
 if(isset($_POST['addSubmit'])){
   require('db.php');
+  $addError = false;
 
-  $alias = ($_POST['alias']); $password = sha1(($_POST['password']));
-  $type = ($_POST['type']);
+  $formNotComplete = false;
+  if(!isset($_POST['type']) || strlen(trim($_POST['alias'])) < 2 ||
+    strlen(trim($_POST['password'])) < 2)
+    $formNotComplete = true;
 
-  
-  if(strlen($alias) < 2 || strlen($_POST['password']) < 4)
-    $addItemSuccess = false;
-  else
-    $addItemSuccess = addEmailAdress($webhosting, $alias, $password, $type);
-  
-  if(!$addItemSuccess) 
+  if(!$formNotComplete)
   {
-    $POST_alias = $alias;
-    $POST_type = $type;
+    $alias = ($_POST['alias']); $password = sha1(($_POST['password']));
+    $type = ($_POST['type']);
+
+    $addItemSuccess = addEmailAdress($webhosting, $alias, $password, $type);
+  }
+
+  if((isset($addItemSuccess) &&!$addItemSuccess) || $formNotComplete)
+  {
+    $POST_alias = isset($_POST['alias']) ? $_POST['alias'] : "";
+    $POST_type = isset($_POST['type']) ? $_POST['type'] : "";
+    $addError = true;
   }
 }
 
@@ -74,6 +80,14 @@ if ($delItemSuccess): ?>
 <?php endif; } ?>
 
 <?php 
+if (isset($formNotComplete)) {
+if ($formNotComplete): ?>
+
+<div>Vsechna pole jsou povinna a musi obsahovat nejmene 2 znaky</div>
+
+<?php endif; } ?>
+
+<?php 
 if (isset($editItemSuccess)) {
 if ($editItemSuccess): ?>
 
@@ -96,7 +110,7 @@ if ($editItemSuccess): ?>
           <div class="col-sm-10">
             <div class="input-group">
               <input name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
-              <?php if (isset($addItemSuccess) and !$addItemSuccess) echo('value="'.$POST_alias.'"'); ?> >
+              <?php if (isset($addError) and !$addError) echo('value="'.$POST_alias.'"'); ?> >
               <span class="input-group-addon">@<?php echo($_SESSION['domain']);?></span>
             </div>
           </div>
@@ -106,11 +120,11 @@ if ($editItemSuccess): ?>
           <div class="col-sm-10">
             <div class="btn-group input-group btn-group-justified" data-toggle="buttons">
               <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "0") echo('active'); ?> ">
-                <input type="radio" name="type" value="0" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "0") echo('checked'); ?>/>POP3</label>
+                <input type="radio" name="type" value="0" <?php if (isset($addError) and $addError and $POST_type === "0") echo('checked'); ?>/>POP3</label>
               <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "1") echo('active'); ?> ">
-                <input type="radio" name="type" value="1" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "1") echo('checked'); ?>/>IMAP</label>
+                <input type="radio" name="type" value="1" <?php if (isset($addError) and $addError and $POST_type === "1") echo('checked'); ?>/>IMAP</label>
               <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "2") echo('active'); ?> ">
-                <input type="radio" name="type" value="2" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "2") echo('checked'); ?>/>POP3 & IMAP</label>
+                <input type="radio" name="type" value="2" <?php if (isset($addError) and $addError and $POST_type === "2") echo('checked'); ?>/>POP3 & IMAP</label>
             </div>
           </div>
         </div>

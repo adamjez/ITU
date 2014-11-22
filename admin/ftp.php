@@ -9,28 +9,35 @@ $webhosting = getWebHosting($_SESSION['id']);
 if(isset($_POST['addSubmit'])){
   require('db.php');
 
-  $pass = generatePassword();
-  $password = sha1($pass);
-  $login = trim($_POST['addLogin']); 
+  $addError = false;
 
-  $path = trim($_POST['addPath']);
-  $mail = $_POST['addEmail'];
-  $ftp_server = "ftp.".$_SESSION['domain'];
+  $formNotComplete = false;
+  if(strlen(trim($_POST['addEmail'])) < 2 || strlen(trim($_POST['password'])) < 2 
+    || strlen(trim($_POST['addLogin'])) < 2 || !filter_var(trim($_POST['addEmail']), FILTER_VALIDATE_EMAIL))
+    $formNotComplete = true;
 
-  if($path == "")
-    $path = "\\";
-
-
-  if(strlen($login) < 2 or !filter_var($mail, FILTER_VALIDATE_EMAIL))
-    $addItemSuccess = false;
-  else
-    $addItemSuccess = addFtpAccount($webhosting, $login, $password, $path, $ftp_server);
-  
-  if(!$addItemSuccess) 
+  if(!$formNotComplete)
   {
-    $POST_login = $login;
-    $POST_path = $path;
-    $Post_mail = $mail;
+    $pass = generatePassword();
+    $password = sha1($pass);
+    $login = trim($_POST['addLogin']); 
+
+    $path = trim($_POST['addPath']);
+    $mail = $_POST['addEmail'];
+    $ftp_server = "ftp.".$_SESSION['domain'];
+
+    if($path == "")
+      $path = "\\";
+
+    $addItemSuccess = addFtpAccount($webhosting, $login, $password, $path, $ftp_server);
+  }
+
+  if((isset($addItemSuccess) &&!$addItemSuccess) || $formNotComplete)
+  {
+    $POST_login = isset($_POST['addLogin']) ? $_POST['addLogin'] : "";
+    $POST_path = isset($_POST['addPath']) ? $_POST['addPath'] : "";
+    $POST_mail = isset($_POST['addEmail']) ? $_POST['addEmail'] : "";
+    $addError = true;
   }
   else
   {
@@ -97,6 +104,14 @@ if ($delItemSuccess): ?>
 
 <?php endif; } ?>
 
+<?php 
+if (isset($formNotComplete)) {
+if ($formNotComplete): ?>
+
+<div>Vsechna pole, krome <b>Path</b> jsou povinna a musi obsahovat nejmene 2 znaky</div>
+
+<?php endif; } ?>
+
           <h2>New FTP account</h2>
           <div class="panel panel-default">
   <div class="panel-body">
@@ -105,21 +120,21 @@ if ($delItemSuccess): ?>
               <label for="inputName" class="col-sm-2 control-label">Login name</label>
               <div class="col-sm-10">
                 <input name="addLogin" type="text" class="form-control" id="inputName" placeholder="FTP account name"
-                <?php if (isset($addItemSuccess) and !$addItemSuccess) echo('value="'.$POST_login.'"'); ?> >
+                <?php if (isset($addError) and $addError) echo('value="'.$POST_login.'"'); ?> >
               </div>
             </div>
             <div class="form-group">
               <label for="inputPath" class="col-sm-2 control-label">Path</label>
               <div class="col-sm-10">
                 <input name="addPath" type="text" class="form-control" id="inputPath" placeholder="Path to folder"
-                <?php if (isset($addItemSuccess) and !$addItemSuccess) echo('value="'.$POST_path.'"'); ?> >
+                <?php if (isset($addError) and $addError) echo('value="'.$POST_path.'"'); ?> >
               </div>
             </div>
             <div class="form-group">
               <label for="inputEmail" class="col-sm-2 control-label">Email</label>
               <div class="col-sm-10">
                 <input name="addEmail" type="email" class="form-control" id="inputEmail" placeholder="Users email"
-                <?php if (isset($addItemSuccess) and !$addItemSuccess) echo('value="'.$POST_mail.'"'); ?> >
+                <?php if (isset($addError) and $addError) echo('value="'.$POST_mail.'"'); ?> >
               </div>
             </div>
             <div class="form-group">
