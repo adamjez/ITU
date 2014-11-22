@@ -77,8 +77,8 @@ if(!isset($_SESSION['active_domain']))
               <a href="manage.php?site=email">Email</a>
             </li>
             <li role="presentation" 
-              <?php if(isset($_GET['site']) and $_GET['site'] == 'mysql'): ?>class="active" <?php endif; ?>>
-              <a href="#">MySQL</a>
+              <?php if(isset($_GET['site']) and $_GET['site'] == 'sql'): ?>class="active" <?php endif; ?>>
+              <a href="manage.php?site=sql">MySQL</a>
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'dns'): ?>class="active" <?php endif; ?>>

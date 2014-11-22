@@ -22,6 +22,20 @@ $EmailTypeDict = array (
 	3 => 'DEACTIVATED',
 );
 
+abstract class DbType {
+	const mysql = 0;
+	const postgresql = 1;
+	const mariadb = 2;
+	const unkown = 3;
+}
+
+$DbTypeDict = array (
+	0 => 'MySQL',
+	1 => 'PostgreSQL',
+	2 => 'MariaDB',
+	3 => 'Unkown',
+);
+
 $StatusDict = array (
 	0 => 'active',
 	1 => 'inactive',
@@ -65,7 +79,7 @@ function getEmailAdress($id)
 	$qz = "SELECT alias, type, used, size FROM MAILBOX WHERE webhosting='".$id."' " ;
 	$result = mysqli_query($conn,$qz);
 
-	if ($result->num_rows != 0){
+	if ($result && $result->num_rows != 0){
 		return resultToArray($result); 
 	}
 
@@ -79,6 +93,45 @@ function addEmailAdress($id, $alias, $password, $type)
 
 	require('db.php');
 	$qz = "INSERT INTO MAILBOX (alias, type, password, webhosting) VALUES ('".$alias."', '".$type."', '".$password."', '".$id."')";
+	return $conn->query($qz);
+}
+
+
+function addDatabase($id, $name, $login, $password, $type, $server)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "INSERT INTO `DATABASE` (name, login, password, type, server, webhosting) 
+		   VALUES ('".$name."', '".$login."', '".$password."', '".$type."', '".$server."', '".$id."')";
+
+	return $conn->query($qz);
+}
+
+function getDatabases($id)
+{
+	if($id == null)
+		return null;
+
+	require('db.php');
+	$qz = "SELECT name, login, type, server FROM `DATABASE` WHERE webhosting='".$id."' " ;
+	$result = mysqli_query($conn,$qz);
+
+	if ($result && $result->num_rows != 0){
+		return resultToArray($result); 
+	}
+
+	return array();
+}
+
+function deleteDatabase($id, $name)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "DELETE FROM `DATABASE` WHERE webhosting='".$id."' AND name='".$name."' ";
 	return $conn->query($qz);
 }
 
@@ -102,7 +155,7 @@ function getFtpAccounts($id)
 	$qz = "SELECT login, status FROM FTPACCOUNT WHERE webhosting='".$id."' " ;
 	$result = mysqli_query($conn,$qz);
 
-	if ($result->num_rows != 0){
+	if ($result && $result->num_rows != 0){
 		return resultToArray($result); 
 	}
 

@@ -105,12 +105,12 @@ if ($editItemSuccess): ?>
           <label class="col-sm-2 control-label">Type</label>
           <div class="col-sm-10">
             <div class="btn-group input-group btn-group-justified" data-toggle="buttons">
-              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type == 0) echo('active'); ?> ">
-                <input type="radio" name="type" value="0"/>POP3</label>
-              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type == 1) echo('active'); ?> ">
-                <input type="radio" name="type" value="1"/>IMAP</label>
-              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type == 2) echo('active'); ?> ">
-                <input type="radio" name="type" value="2"/>POP3 & IMAP</label>
+              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "0") echo('active'); ?> ">
+                <input type="radio" name="type" value="0" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "0") echo('checked'); ?>/>POP3</label>
+              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "1") echo('active'); ?> ">
+                <input type="radio" name="type" value="1" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "1") echo('checked'); ?>/>IMAP</label>
+              <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "2") echo('active'); ?> ">
+                <input type="radio" name="type" value="2" <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "2") echo('checked'); ?>/>POP3 & IMAP</label>
             </div>
           </div>
         </div>
