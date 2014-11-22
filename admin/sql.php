@@ -98,7 +98,7 @@ if ($delItemSuccess): ?>
   <h2>New Database</h2>
   <div class="panel panel-default">
     <div class="panel-body">
-      <form class="form-horizontal" role="form" method="post">
+      <form class="form-horizontal" role="form" method="post" id="addForm">
         <div class="form-group">
           <label for="inputName" class="col-sm-2 control-label">Name</label>
           <div class="col-sm-10">
@@ -193,3 +193,67 @@ if ($delItemSuccess): ?>
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#addForm')
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                addName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The name is required'
+                        },
+                        stringLength: {
+                            message: 'name have to contain at least 2 characters',
+                            min: 2
+                        }
+                    }
+                },
+                addLogin: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The login is required'
+                        },
+                        stringLength: {
+                            message: 'Login have to contain at least 2 characters',
+                            min: 2
+                        }
+                    }
+                },
+                addPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required'
+                        },
+                        stringLength: {
+                            message: 'Password have to contain at least 4 characters',
+                            min: 4
+                        }
+                    }
+                },
+                addType: {
+                    feedbackIcons: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'The login name is required'
+                        }
+                    }
+                },
+            }
+        })
+        .on('click', 'button[data-toggle]', function() {
+            var $target = $($(this).attr('data-toggle'));
+            $target.toggle();
+            if (!$target.is(':visible')) {
+                // Enable the submit buttons in case additional fields are not valid
+                $('#togglingForm').data('bootstrapValidator').disableSubmitButtons(false);
+            }
+        });
+});
+</script>

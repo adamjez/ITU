@@ -12,8 +12,8 @@ if(isset($_POST['addSubmit'])){
   $addError = false;
 
   $formNotComplete = false;
-  if(strlen(trim($_POST['addEmail'])) < 2 || strlen(trim($_POST['password'])) < 4 
-    || strlen(trim($_POST['addLogin'])) < 2 || !filter_var(trim($_POST['addEmail']), FILTER_VALIDATE_EMAIL))
+  if(strlen(trim($_POST['addEmail'])) < 2 || strlen(trim($_POST['addLogin'])) < 2 
+    || !filter_var(trim($_POST['addEmail']), FILTER_VALIDATE_EMAIL))
     $formNotComplete = true;
 
   if(!$formNotComplete)
@@ -21,13 +21,12 @@ if(isset($_POST['addSubmit'])){
     $pass = generatePassword();
     $password = sha1($pass);
     $login = trim($_POST['addLogin']); 
-
     $path = trim($_POST['addPath']);
     $mail = $_POST['addEmail'];
     $ftp_server = "ftp.".$_SESSION['domain'];
 
     if($path == "")
-      $path = "\\";
+      $path = "\\home";
 
     $addItemSuccess = addFtpAccount($webhosting, $login, $password, $path, $ftp_server);
   }
@@ -131,7 +130,7 @@ if ($formNotComplete): ?>
           <h2>New FTP account</h2>
           <div class="panel panel-default">
   <div class="panel-body">
-          <form class="form-horizontal" role="form" method="post">
+          <form class="form-horizontal" role="form" method="post" id="addForm">
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Login name</label>
               <div class="col-sm-10">
@@ -235,3 +234,44 @@ if ($formNotComplete): ?>
           </div>
           </div>
         </div>
+
+<script>
+$(document).ready(function() {
+    $('#addForm')
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                addLogin: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The login is required'
+                        },
+                        stringLength: {
+                            message: 'Login have to contain at least 2 characters',
+                            min: 2
+                        }
+                    }
+                },
+                addEmail: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The e-mail address is required'
+                        }
+                    }
+                },
+            }
+        })
+        .on('click', 'button[data-toggle]', function() {
+            var $target = $($(this).attr('data-toggle'));
+            $target.toggle();
+            if (!$target.is(':visible')) {
+                // Enable the submit buttons in case additional fields are not valid
+                $('#togglingForm').data('bootstrapValidator').disableSubmitButtons(false);
+            }
+        });
+});
+</script>

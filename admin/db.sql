@@ -28,13 +28,20 @@ CREATE TABLE `DATABASE` (
   `name` varchar(32) COLLATE utf8_bin NOT NULL,
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` binary(20) NOT NULL,
-  `server` varchar(32) COLLATE utf8_bin NOT NULL,
+  `server` varchar(50) COLLATE utf8_bin NOT NULL,
   `webhosting` int(32) NOT NULL,
-  PRIMARY KEY (`name`),
+  `type` int(8) NOT NULL,
+  PRIMARY KEY (`name`,`webhosting`),
   KEY `webhosting` (`webhosting`),
   CONSTRAINT `DATABASE_ibfk_1` FOREIGN KEY (`webhosting`) REFERENCES `WEBHOSTING` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `DATABASE` (`name`, `login`, `password`, `server`, `webhosting`, `type`) VALUES
+('admin', 'Admin',  UNHEX('6973613230313400000000000000000000000000'),  'admin.sql.ITU.org',  1,  1),
+('ituJeNej',  'Roman',  UNHEX('6973613230313400000000000000000000000000'),  'ituJeNej.sql.ITU.org', 1,  2),
+('test',  'ghost',  UNHEX('6973613230313400000000000000000000000000'),  'test.sql.ITU.org', 1,  0),
+('test2', 'gdsgsdg',  UNHEX('6973613230313400000000000000000000000000'),  'test2.sql.ITU.org',  1,  1),
+('test3', 'test', UNHEX('6973613230313400000000000000000000000000'),  'test3.sql.ITU.org',  1,  2);
 
 DROP TABLE IF EXISTS `DNSRECORD`;
 CREATE TABLE `DNSRECORD` (
@@ -122,4 +129,4 @@ CREATE TABLE `WEBHOSTING` (
 INSERT INTO `WEBHOSTING` (`id`, `expiration`, `type`, `state`, `client`) VALUES
 (1, '2016-01-01', 1,  1,  1);
 
--- 2014-11-21 16:22:43
+-- 2014-11-22 22:16:28

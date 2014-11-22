@@ -133,13 +133,19 @@ if ($editItemSuccess): ?>
 </div>
 
 <?php endif; } ?>
+<style type="text/css">
+#addForm .emailInputGroup .form-control-feedback {
+    top: 0;
+    right: 105px;
+}
+</style>
   <h2>New Mailbox</h2>
   <div class="panel panel-default">
     <div class="panel-body">
-      <form class="form-horizontal" role="form" method="post">
+      <form class="form-horizontal" role="form" method="post" id="addForm">
         <div class="form-group">
           <label for="inputAddress" class="col-sm-2 control-label">Address</label>
-          <div class="col-sm-10">
+          <div class="col-sm-10 emailInputGroup">
             <div class="input-group">
               <input name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
               <?php if (isset($addError) and !$addError) echo('value="'.$POST_alias.'"'); ?> >
@@ -149,7 +155,7 @@ if ($editItemSuccess): ?>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">Type</label>
-          <div class="col-sm-10">
+          <div class="col-sm-10 typelInputGroup">
             <div class="btn-group input-group btn-group-justified" data-toggle="buttons">
               <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type === "0") echo('active'); ?> ">
                 <input type="radio" name="type" value="0" <?php if (isset($addError) and $addError and $POST_type === "0") echo('checked'); ?>/>POP3</label>
@@ -274,3 +280,53 @@ if ($editItemSuccess): ?>
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#addForm')
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                alias: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The alias is required'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required'
+                        },
+                        stringLength: {
+                            message: 'Password have to contain at least 4 characters',
+                            min: 4
+                        }
+                    }
+                },
+                type: {
+                    feedbackIcons: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'The type is required'
+                        }
+                    }
+                },
+            }
+        })
+        .on('click', 'button[data-toggle]', function() {
+            var $target = $($(this).attr('data-toggle'));
+            $target.toggle();
+            if (!$target.is(':visible')) {
+                // Enable the submit buttons in case additional fields are not valid
+                $('#togglingForm').data('bootstrapValidator').disableSubmitButtons(false);
+            }
+        });
+});
+</script>
+
