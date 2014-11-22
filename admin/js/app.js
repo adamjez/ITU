@@ -7,9 +7,6 @@
             $scope.mailbox.address = address;
             $scope.mailbox.type = type;
             $scope.mailbox.edit = true;
-            $('html, body').animate({
-                scrollTop: $("#edit").offset().top
-            }, 2000);
         }
     });
 })();

@@ -102,7 +102,7 @@ if ($editItemSuccess): ?>
           </div>
         </div>
         <div class="form-group">
-          <label for="inputPath" class="col-sm-2 control-label">Type</label>
+          <label class="col-sm-2 control-label">Type</label>
           <div class="col-sm-10">
             <div class="btn-group input-group btn-group-justified" data-toggle="buttons">
               <label class="btn btn-primary <?php if (isset($addItemSuccess) and !$addItemSuccess and $POST_type == 0) echo('active'); ?> ">
