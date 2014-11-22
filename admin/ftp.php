@@ -12,7 +12,7 @@ if(isset($_POST['addSubmit'])){
   $addError = false;
 
   $formNotComplete = false;
-  if(strlen(trim($_POST['addEmail'])) < 2 || strlen(trim($_POST['password'])) < 2 
+  if(strlen(trim($_POST['addEmail'])) < 2 || strlen(trim($_POST['password'])) < 4 
     || strlen(trim($_POST['addLogin'])) < 2 || !filter_var(trim($_POST['addEmail']), FILTER_VALIDATE_EMAIL))
     $formNotComplete = true;
 
@@ -72,11 +72,16 @@ if(isset($_POST['acSubmit']) or isset($_POST['deSubmit'])){
 if (isset($addItemSuccess)) {
 if ($addItemSuccess): ?>
 
-<div>Ftp ucet <?php echo($login); ?> byl uspesne pridana a heslo bylo zaslano na emailovou adresu <?php echo($mail); ?></div>
+<div class="alert alert-success" role="alert">
+<strong>Well done!</strong>FTP account "<?php echo($login); ?>" was added successfully and password was send to "<?php echo($mail); ?>".
+</div>
 
 <?php else: ?>
 
-<div>FTP ucet se nepodarilo pridat. Bud jste zadali kratky login nebo email neni validni nebo jiz stejny login existuje</div>
+<div class="alert alert-danger" role="alert">
+<strong>Oh snap!</strong> FTP account couldn't be added. Here are some possible causes:
+<ul><li><strong>FTP account with the same name already exists</strong></li></ul>
+</div>
 
 <?php endif; } ?>
 
@@ -84,11 +89,16 @@ if ($addItemSuccess): ?>
 if (isset($changeItemSuccess)) {
 if ($changeItemSuccess): ?>
 
-<div>Ftp ucet <?php echo($login); ?> byl uspesne zmenen na <?php echo($StatusDict[$status]); ?></div>
+<div class="alert alert-success" role="alert">
+<strong>Well done!</strong> FTP account "<?php echo($login); ?>" was edited successfully to "<?php echo($StatusDict[$status]); ?>".
+</div>
 
 <?php else: ?>
 
-<div>Nepodarilo se zmenit stav FTP uctu <?php echo($login); ?>. Nejspis zadany ucet neexistuje nebo k tomu nemate prava.</div>
+<div class="alert alert-danger" role="alert">
+<strong>Oh snap!</strong> FTP account couldn't be edited. <?php echo($login); ?>. Here are some possible causes:
+<ul><li>FTP account no longer exists</li></ul>
+</div>
 
 <?php endif; } ?>
 
@@ -96,11 +106,11 @@ if ($changeItemSuccess): ?>
 if (isset($delItemSuccess)) {
 if ($delItemSuccess): ?>
 
-<div>FTP ucet <?php echo($login); ?> byl uspesne odstranen</div>
+<div class="alert alert-success" role="alert"><strong>Well done!</strong> FTP account "<?php echo($login); ?>" was deleted successfully.</div>
 
 <?php else: ?>
 
-<div>FTP ucet <?php echo($login); ?> se nepodarilo odstranit</div>
+<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> FTP account "<?php echo($login); ?>" couldn't be deleted.</div>
 
 <?php endif; } ?>
 
@@ -108,7 +118,13 @@ if ($delItemSuccess): ?>
 if (isset($formNotComplete)) {
 if ($formNotComplete): ?>
 
-<div>Vsechna pole, krome <b>Path</b> jsou povinna a musi obsahovat nejmene 2 znaky</div>
+<div class="alert alert-warning" role="alert">All fields except <b>Path</b> are reguired. Here are some advices:
+  <ul>
+    <li><strong>Check if field e-mail addres is correct</strong></li>
+    <li><strong>Check if field login have at least 2 characters</strong></li>
+    <li><strong>Check if field password have at least 4 characters</strong></li>
+  </ul>
+</div>
 
 <?php endif; } ?>
 

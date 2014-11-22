@@ -14,7 +14,7 @@ if(isset($_POST['addSubmit'])){
 
   $formNotComplete = false;
   if(!isset($_POST['addType']) || strlen(trim($_POST['addLogin'])) < 2 ||
-    strlen(trim($_POST['addPassword'])) < 2 || strlen(trim($_POST['addName'])) < 2)
+    strlen(trim($_POST['addPassword'])) < 4 || strlen(trim($_POST['addName'])) < 2)
     $formNotComplete = true;
 
   if(!$formNotComplete)
@@ -55,11 +55,13 @@ if(isset($_POST['delSubmit'])){
 if (isset($addItemSuccess)) {
 if ($addItemSuccess): ?>
 
-<div>Databaze "<?php echo($name); ?>" byla uspesne pridana</div>
+<div class="alert alert-success" role="alert"><strong>Well done!</strong> Database "<?php echo($name); ?>" was created successfully.</div>
 
 <?php else: ?>
 
-<div>Databazi se nepodarilo pridat. Nejspise uz existuje databaze se stejnym nazvem</div>
+<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Database couldn't be added. Here are some possible causes:
+<ul><li><strong>Database with the same name already exists</strong></li></ul>
+</div>
 
 <?php endif; } ?>
 
@@ -67,7 +69,16 @@ if ($addItemSuccess): ?>
 if (isset($formNotComplete)) {
 if ($formNotComplete): ?>
 
-<div>Vsechna pole jsou povinna a musi obsahovat nejmene 2 znaky</div>
+<div class="alert alert-warning" role="alert">All fields are reguired. Here are some advices:
+  <ul>
+  <?php if ($POST_type !== ""): ?>
+    <li><strong>Check if field name or login have at least 2 characters</strong></li>
+    <li><strong>Check if field password have at least 4 characters</strong></li>
+  <?php else: ?>
+    <li><strong>Check if you choosed type of new database</strong></li>
+  <?php endif; ?>
+  </ul>
+</div>
 
 <?php endif; } ?>
 
@@ -76,11 +87,11 @@ if ($formNotComplete): ?>
 if (isset($delItemSuccess)) {
 if ($delItemSuccess): ?>
 
-<div>Databaze <?php echo($name); ?> byla uspesne odstranena</div>
+<div class="alert alert-success" role="alert"><strong>Well done!</strong> Database "<?php echo($name); ?>" was deleted successfully.</div>
 
 <?php else: ?>
 
-<div>Databazi <?php echo($name); ?> se nepodarilo odstranit, nejspise k tomu nemate dostatecne opravneni nebo neexistuje.</div>
+<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Database "<?php echo($name); ?>" couldn't be deleted.</div>
 
 <?php endif; } ?>
 

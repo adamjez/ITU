@@ -13,7 +13,7 @@ if(isset($_POST['addSubmit'])){
 
   $formNotComplete = false;
   if(!isset($_POST['type']) || strlen(trim($_POST['alias'])) < 2 ||
-    strlen(trim($_POST['password'])) < 2)
+    strlen(trim($_POST['password'])) < 4)
     $formNotComplete = true;
 
   if(!$formNotComplete)
@@ -49,7 +49,11 @@ if(isset($_POST['editSubmit'])){
   $alias = ($_POST['editAlias']); $password = sha1(($_POST['editPassword']));
   $type = ($_POST['editType']);
 
-  $editItemSuccess = updateEmailAdress($webhosting, $old_alias, $alias, $password, $type);
+  if(!isset($_POST['type']) || strlen(trim($_POST['editAlias'])) < 2 ||
+    strlen(trim($_POST['editPassword'])) < 4)
+    $editItemSuccess = false;
+  else
+    $editItemSuccess = updateEmailAdress($webhosting, $old_alias, $alias, $password, $type);
 }
 
 ?>
@@ -59,11 +63,15 @@ if(isset($_POST['editSubmit'])){
 if (isset($addItemSuccess)) {
 if ($addItemSuccess): ?>
 
-<div>Emailova adresa <?php echo($alias . "@" . $_SESSION['domain']); ?> byla uspesne pridana</div>
+<div class="alert alert-success" role="alert">
+<strong>Well done!</strong> E-mail address "<?php echo($alias . "@" . $_SESSION['domain']); ?>" was added successfully.
+</div>
 
 <?php else: ?>
 
-<div>Emailova adresa  se nepodarila pridat, nejspise uz existuje stejny alias nebo heslo je kratsi nez 4 znaky</div>
+<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> E-mail address couldn't be added. Here are some possible causes:
+<ul><li><strong>E-mail address with same alias already exists</strong></li></ul>
+</div>
 
 <?php endif; } ?>
 
@@ -71,11 +79,15 @@ if ($addItemSuccess): ?>
 if (isset($delItemSuccess)) {
 if ($delItemSuccess): ?>
 
-<div>Emailova adresa <?php echo($alias . "@" . $_SESSION['domain']); ?> byla uspesne odstranena</div>
+<div class="alert alert-success" role="alert">
+<strong>Well done!</strong> E-mail address "<?php echo($alias . "@" . $_SESSION['domain']); ?>" was deleted successfully.
+</div>
 
 <?php else: ?>
 
-<div>Emailova adresu <?php echo($alias . "@" . $_SESSION['domain']); ?> se nepodarilo odstranit</div>
+<div class="alert alert-danger" role="alert">
+<strong>Oh snap!</strong> E-mail address "<?php echo($alias . "@" . $_SESSION['domain']); ?>" couldn't be deleted.
+</div>
 
 <?php endif; } ?>
 
@@ -83,7 +95,16 @@ if ($delItemSuccess): ?>
 if (isset($formNotComplete)) {
 if ($formNotComplete): ?>
 
-<div>Vsechna pole jsou povinna a musi obsahovat nejmene 2 znaky</div>
+<div class="alert alert-warning" role="alert">All fields are reguired. Here are some advices:
+  <ul>
+  <?php if ($POST_type !== ""): ?>
+    <li><strong>Check if field address have at least 2 characters</strong></li>
+    <li><strong>Check if field password have at least 4 characters</strong></li>
+  <?php else: ?>
+    <li><strong>Check if you choosed type of new e-mail address</strong></li>
+  <?php endif; ?>
+  </ul>
+</div>
 
 <?php endif; } ?>
 
@@ -92,13 +113,24 @@ if (isset($editItemSuccess)) {
 if ($editItemSuccess): ?>
 
   <?php if ($old_alias == $alias): ?>
-    <div>Emailova adresa <?php echo($alias . "@" . $_SESSION['domain']); ?> byla upravena</div>
+    <div class="alert alert-success" role="alert">
+      <strong>Well done!</strong>E-mail address "<?php echo($alias . "@" . $_SESSION['domain']); ?>" was edited successfully.
+    </div>
   <?php else: ?>
-    <div>Emailova adresa <?php echo($old_alias . "@" . $_SESSION['domain']); ?> byla zmenena na <?php echo($alias . "@" . $_SESSION['domain']); ?></div>
+    <div class="alert alert-success" role="alert">
+      <strong>Well done!</strong>E-mail address "<?php echo($old_alias . "@" . $_SESSION['domain']); ?>" was edited successfully to "<?php echo($alias . "@" . $_SESSION['domain']); ?>"
+    </div>
   <?php endif;  ?>
 <?php else: ?>
 
-<div>Emailovou adresu <?php echo($alias . "@" . $_SESSION['domain']); ?> se nepodarilo upravit</div>
+<div class="alert alert-danger" role="alert">
+<strong>Oh snap!</strong> E-mail address "<?php echo($alias . "@" . $_SESSION['domain']); ?>" couldn't be edited. Here are some adiveces:
+<ul>
+    <li>Check if field address have at least 2 characters</li>
+    <li>Check if field password have at least 4 characters</li>
+    <li>Check if you choosed type of new e-mail address</li>
+</ul>
+</div>
 
 <?php endif; } ?>
   <h2>New Mailbox</h2>
