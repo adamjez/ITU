@@ -110,7 +110,7 @@ if(isset($_POST['submit'])){
     </nav>
     <div class="container">
       <div class="page-header">
-        <h1>Webhosting administration <small>domain.com</small></h1>
+        <h1>Webhosting administration</h1>
       </div>
     </div>
     <div class="jumbotron">
