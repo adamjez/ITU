@@ -28,6 +28,7 @@
     <div class="panel-body">
       <div class="canvas-holder-half">
         <canvas id="platform" height="40" width="50" style="padding-right: 30px;"></canvas>
+        <div id="platformLegend"></div>
         <script>
           var platformData = [
               {
@@ -77,6 +78,7 @@
       </div>
       <div class="canvas-holder-half">
         <canvas id="browser" height="40" width="50" style="padding-right: 30px;"></canvas>
+        <div id="browserLegend"></div>
         <script>
           var browserData = [
               {
@@ -121,16 +123,58 @@
                 pointDot: true,
                 datasetFill: true,
             });
+
+            var optionsBrowser = {
+              responsive: true,
+              legendTemplate: "<ul class=\"doughnut-legend\">"
+              + "<% for (var i=0; i<browserData.length; i++){%><li><span style=\"background-color:<%=browserData[i].color%>\">"
+              + "</span><%if(browserData[i].label){%><%=browserData[i].label%><%}%></li><%}%></ul>"
+            }
+
+            var optionsPlatform = {
+              responsive: true,
+              legendTemplate: "<ul class=\"doughnut-legend\">"
+              + "<% for (var i=0; i<platformData.length; i++){%><li><span style=\"background-color:<%=platformData[i].color%>\">"
+              + "</span><%if(platformData[i].label){%><%=platformData[i].label%><%}%></li><%}%></ul>"
+            }
+
+
             var ctx_pie_i = document.getElementById("platform").getContext("2d");
-            window.myPie = new Chart(ctx_pie_i).Pie(platformData, {
-                responsive: true
-            });
+            var platformChart = new Chart(ctx_pie_i).Pie(platformData, optionsPlatform);
+            
+            
+
             var ctx_pie_ii = document.getElementById("browser").getContext("2d");
-            window.myPie = new Chart(ctx_pie_ii).Pie(browserData, {
-                responsive: true
-            });
+            var browserChart = new Chart(ctx_pie_ii).Pie(browserData, optionsBrowser);
+
+            document.getElementById("platformLegend").innerHTML = platformChart.generateLegend();
+            document.getElementById("browserLegend").innerHTML = browserChart.generateLegend();
         }
       </script>
+            <style>
+      .doughnut-legend {
+        list-style: none outside none;
+      }
+      .doughnut-legend li {
+        display: block;
+        position: relative;
+        margin-bottom: 4px;
+        border-radius: 5px;
+        padding: 2px 8px 2px 28px;
+        font-size: 14px;
+        cursor: default;
+        transition: background-color 200ms ease-in-out 0s;
+      }
+      .doughnut-legend li span {
+          display: block;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          width: 20px;
+          height: 100%;
+          border-radius: 5px;
+      }
+      </style>
     </div>
   </div>
   <h2>Refering sites & Popular content</h2>
