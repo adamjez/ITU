@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Webhosting administration</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style type="text/css">
+      .bs-sidebar .nav > .active > ul {
+          display: block;
+          margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">domain.com</a>
+        </div>
+        <p class="navbar-text navbar-justified">Webhosting administration</p>
+        <p class="navbar-text navbar-right">
+          Signed in as <a href="#" class="navbar-link">Mark Otto</a>
+          &nbsp;&nbsp;
+          <span class="badge">14</span>
+          &nbsp;&nbsp;
+          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+          &nbsp;&nbsp;
+        </p>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="page-header">
+        <h1>Webhosting administration <small>domain.com</small></h1>
+      </div>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="col-xs-6 col-md-4">
+          <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#">FTP</a></li>
+            <li role="presentation"><a href="#">Email</a></li>
+            <li role="presentation"><a href="#">MySQL</a></li>
+            <li role="presentation"><a href="#">DNS</a></li>
+            <li role="presentation"><a href="#">Stats</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+          <ul class="nav nav-pills nav-justified">
+            <li role="presentation" class="active"><a href="#">Account</a></li>
+            <li role="presentation"><a href="#">Services</a></li>
+          </ul>
+          <h2>Account settings</h2>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail" value="markotto@gmail.com">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+                  <div class="col-sm-10">
+                    <input type="tel" class="form-control" id="inputPhone" value="+420 620 232323">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPasswordII" class="col-sm-2 control-label">Repeat password</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                      <input type="password" class="form-control" id="inputPasswordII" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-refresh"> Update details</span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <h2>Notifications</h2>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <td>Service is about to expire</td>
+                  <td>
+                    <div class="btn-group input-group" data-toggle="buttons">
+                      <label class="btn btn-success">
+                        <input type="radio" name="options" id="option1" />ON</label>
+                      <label class="btn btn-danger">
+                        <input type="radio" name="options" id="option3" />OFF</label>
+                    </div>
+                  </td>
+                <tr>
+                </tr>
+                  <td>No space left in database</td>
+                  <td>
+                    <div class="btn-group input-group" data-toggle="buttons">
+                      <label class="btn btn-success">
+                        <input type="radio" name="options" id="option1" />ON</label>
+                      <label class="btn btn-danger">
+                        <input type="radio" name="options" id="option3" />OFF</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>No space left in mailbox</td>
+                  <td>
+                    <div class="btn-group input-group" data-toggle="buttons">
+                      <label class="btn btn-success">
+                        <input type="radio" name="options" id="option1" />ON</label>
+                      <label class="btn btn-danger">
+                        <input type="radio" name="options" id="option3" />OFF</label>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
