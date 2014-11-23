@@ -8,8 +8,21 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
 {
-  header('Location: index.php');
+  header('Location: index.php?loginRequired');
 }
+
+include('functions.php');
+if(!isset($_SESSION['active_domain']))
+{
+  $domain = getDefaultDomain($_SESSION['id']);
+
+  if($domain == null)
+    $_SESSION['domain']= 'NOT EXISTS';
+  else {
+    $_SESSION['domain'] = $domain['name'] . '.' . $domain['tld'];
+  }
+}
+
 
 ?>
 
@@ -28,7 +41,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">domain.com</a>
+          <a class="navbar-brand" href="#"><?php echo($_SESSION['domain']);?></a>
         </div>
         <p class="navbar-text navbar-justified">Webhosting administration</p>
         <p class="navbar-text navbar-right">
@@ -43,7 +56,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
     </nav>
     <div class="container">
       <div class="page-header">
-        <h1>Webhosting administration <small>domain.com</small></h1>
+        <h1>Webhosting administration <small><?php echo($_SESSION['domain']);?></small></h1>
       </div>
     </div>
     <div class="jumbotron">
@@ -54,7 +67,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>FTP accounts</h3>
                 <p><small>manage FTP accounts, manage files & folders</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="manage.php?site=ftp" class="btn btn-primary" role="button">Open</a><!-- <a href="#" class="btn btn-default" role="button">Button</a>--></p>
               </div>
             </div>
           </div>
@@ -63,7 +76,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>Email boxes</h3>
                 <p><small>setup email boxes, browse emails, set email notification</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="manage.php?site=email" class="btn btn-primary" role="button">Open</a></p>
               </div>
             </div>
           </div>
@@ -72,7 +85,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>MySQL Database</h3>
                 <p><small>manage MySQL databases, browse curent databases</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="manage.php?site=sql" class="btn btn-primary" role="button">Open</a></p>
               </div>
             </div>
           </div>
@@ -81,7 +94,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>DNS records</h3>
                 <p><small>modify details on registered domain, browse DNS records</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="manage.php?site=dns" class="btn btn-primary" role="button">Open</a></p>
               </div>
             </div>
           </div>
@@ -90,7 +103,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>Stats</h3>
                 <p><small>used space, visits counter, users informations</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="manage.php?site=stats" class="btn btn-primary" role="button">Open</a></p>
               </div>
             </div>
           </div>
@@ -99,7 +112,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
               <div class="caption">
                 <h3>Account settings</h3>
                 <p><small>change password, contact details, notifications</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
               </div>
             </div>
           </div>

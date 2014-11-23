@@ -31,8 +31,14 @@ if(isset($_POST['submit'])){
     $_SESSION['surname'] = $row['surname']; 
     $_SESSION['id'] = $row['ID']; 
   
-    header('Cache-control: private');
-    header('LOCATION:dashboard.php'); exit();
+    if($_POST['backSite'] !== "")
+      $site = "LOCATION:manage.php?&site=".$_POST['backSite'];
+    else
+      $site = "LOCATION:dashboard.php";
+
+
+    header('Cache-control: private'); 
+    header($site); exit();
   }
   else {
     $_SESSION['POST'] = $email;
@@ -107,13 +113,22 @@ if(isset($_POST['submit'])){
         <h1>Webhosting administration <small>domain.com</small></h1>
       </div>
     </div>
-    <?php if (isset($_SESSION['POST'])): ?>
-    <div>ZADAL JSI SPATNY LOGIN!!!!</div>
-    <?php endif; ?>
     <div class="jumbotron">
+        <?php if (isset($_SESSION['POST'])): ?>
+    <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You entered wrong e-mail address or password. Here are some advices
+      <ul>
+        <li><strong>Check if you entered your e-mail address and password correctly.</strong></li>
+        <li><strong>If problems continue, please send e-mail to our support: support@bestWebHosting.com</strong></li>
+      </ul>
+    </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['loginRequired'])): ?>
+    <div class="alert alert-warning" role="alert"><strong>Warning!</strong> You have to login before you're able to manage your webhosting.</div>
+    <?php endif; ?>
       <div class="container">
         <form class="form-signin" role="form" method="post">
           <h2 class="form-signin-heading">Please sign in</h2>
+          <input name="backSite" type="hidden" value="<?php if (isset($_GET['back'])) echo($_GET['back']); ?>"/>
           <label for="inputEmail" class="sr-only">Email address</label>
           <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus
           <?php if (isset($_SESSION['POST'])) echo('value="'.$_SESSION['POST'].'"'); ?> >

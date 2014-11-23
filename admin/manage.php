@@ -8,7 +8,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
 {
-  header('Location: index.php');
+  header('Location: index.php?loginRequired&back='.$_GET['site']);
+  exit();
 }
 
 include('functions.php');
@@ -37,10 +38,15 @@ if(!isset($_SESSION['active_domain']))
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="js/chart.js"></script>
     <style type="text/css">
       .bs-sidebar .nav > .active > ul {
           display: block;
           margin-bottom: 8px;
+      }
+      .canvas-holder-half {
+          width: 50%;
+          float: left;
       }
     </style>
   </head>
@@ -88,7 +94,7 @@ if(!isset($_SESSION['active_domain']))
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'stats'): ?>class="active" <?php endif; ?>>
-              <a href="#">Stats</a>
+              <a href="manage.php?site=stats">Stats</a>
             </li>
           </ul>
         </div>
