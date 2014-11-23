@@ -36,6 +36,16 @@ $DbTypeDict = array (
 	3 => 'Unkown',
 );
 
+abstract class DnsType {
+	const primary = 0;
+	const secondary = 1;
+}
+
+$DnsTypeDict = array (
+	0 => 'primary',
+	1 => 'secondary',
+);
+
 $StatusDict = array (
 	0 => 'active',
 	1 => 'inactive',
@@ -48,7 +58,7 @@ function getDefaultDomain($id)
 	$qz = "SELECT name, tld, state FROM DOMAIN WHERE client='".$id."' LIMIT 1" ;
 	$result = mysqli_query($conn,$qz);
 
-	if ($result->num_rows != 0){
+	if ($result && $result->num_rows != 0){
 		$row = $result->fetch_assoc();
 		return $row; 
 	}
@@ -62,12 +72,50 @@ function getWebHosting($id)
 	$qz = "SELECT * FROM WEBHOSTING WHERE client='".$id."' LIMIT 1" ;
 	$result = mysqli_query($conn,$qz);
 
-	if ($result->num_rows != 0){
+	if ($result && $result->num_rows != 0){
 		$row = $result->fetch_assoc();
 		return $row['id']; 
 	}
 
 	return null;
+}
+
+
+function getDNSRecords($name)
+{
+	if($name == null)
+		return null;
+
+	require('db.php');
+	$qz = "SELECT name, type, status FROM DNSRECORD WHERE domain='".$name."' " ;
+	$result = mysqli_query($conn,$qz);
+
+	if ($result && $result->num_rows != 0){
+		return resultToArray($result); 
+	}
+
+	return array();
+}
+
+function deleteDNSRecord($name, $domain)
+{
+	if($name == null)
+		return false;
+
+	require('db.php');
+	$qz = "DELETE FROM `DNSRECORD` WHERE domain='".$domain."' AND name='".$name."' ";
+	return $conn->query($qz);
+}
+
+function addDNSRecord($domain, $name, $ipv4, $type)
+{
+	if($domain == null)
+		return false;
+
+	require('db.php');
+	$qz = "INSERT INTO `DNSRECORD` (name, TTL, type, IPv4, IPv6, domain, status)
+			VALUES ('".$name."', '1800', '".$type."', '".$ipv4."', '', '".$domain."', '0')";
+	return $conn->query($qz);
 }
 
 function getEmailAdress($id)

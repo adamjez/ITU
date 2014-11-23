@@ -140,7 +140,7 @@ if ($editItemSuccess): ?>
           <label for="inputAddress" class="col-sm-2 control-label">Address</label>
           <div class="col-sm-10 emailInputGroup">
             <div class="input-group">
-              <input name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
+              <input data-bv-remote-delay="10000" name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
               <?php if (isset($addError) and !$addError) echo('value="'.$POST_alias.'"'); ?> >
               <span class="input-group-addon">@<?php echo($_SESSION['domain']);?></span>
             </div>

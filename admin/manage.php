@@ -84,7 +84,7 @@ if(!isset($_SESSION['active_domain']))
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'dns'): ?>class="active" <?php endif; ?>>
-              <a href="#">DNS</a>
+              <a href="manage.php?site=dns">DNS</a>
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'stats'): ?>class="active" <?php endif; ?>>
