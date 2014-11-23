@@ -56,7 +56,7 @@ if(!isset($_SESSION['active_domain']))
         <div class="navbar-header">
           <a class="navbar-brand" href="#"><?php echo($_SESSION['domain']);?></a>
         </div>
-        <p class="navbar-text navbar-justified">Webhosting administration</p>
+        <p class="navbar-text navbar-justified"><a class="navbar-link" href="dashboard.php">Webhosting administration</a></p>
         <p class="navbar-text navbar-right">
           Signed in as <a href="#" class="navbar-link"><?php echo($_SESSION['name'] . ' ' . $_SESSION['surname']); ?></a>
           &nbsp;&nbsp;
