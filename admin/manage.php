@@ -26,7 +26,7 @@ if(!isset($_SESSION['active_domain']))
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="email">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
