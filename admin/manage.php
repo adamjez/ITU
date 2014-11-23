@@ -26,7 +26,7 @@ if(!isset($_SESSION['active_domain']))
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="email">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -84,7 +84,7 @@ if(!isset($_SESSION['active_domain']))
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'dns'): ?>class="active" <?php endif; ?>>
-              <a href="#">DNS</a>
+              <a href="manage.php?site=dns">DNS</a>
             </li>
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'stats'): ?>class="active" <?php endif; ?>>

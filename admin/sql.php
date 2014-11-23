@@ -160,7 +160,7 @@ if ($delItemSuccess): ?>
 
               foreach($dbs as $db)
               {
-              ?>
+        ?>
         <tr>
           <td><strong><?php echo($db['name']); ?></strong></td>
           <td><?php echo($db['login']); ?></td>
@@ -241,7 +241,7 @@ $(document).ready(function() {
                     feedbackIcons: false,
                     validators: {
                         notEmpty: {
-                            message: 'The login name is required'
+                            message: 'The type name is required'
                         }
                     }
                 },

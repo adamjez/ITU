@@ -38,25 +38,26 @@ CREATE TABLE `DATABASE` (
 
 INSERT INTO `DATABASE` (`name`, `login`, `password`, `server`, `webhosting`, `type`) VALUES
 ('admin', 'Admin',  UNHEX('6973613230313400000000000000000000000000'),  'admin.sql.ITU.org',  1,  1),
-('ituJeNej',  'Roman',  UNHEX('6973613230313400000000000000000000000000'),  'ituJeNej.sql.ITU.org', 1,  2),
 ('test',  'ghost',  UNHEX('6973613230313400000000000000000000000000'),  'test.sql.ITU.org', 1,  0),
 ('test2', 'gdsgsdg',  UNHEX('6973613230313400000000000000000000000000'),  'test2.sql.ITU.org',  1,  1),
 ('test3', 'test', UNHEX('6973613230313400000000000000000000000000'),  'test3.sql.ITU.org',  1,  2);
 
 DROP TABLE IF EXISTS `DNSRECORD`;
 CREATE TABLE `DNSRECORD` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
-  `TTL` int(8) NOT NULL,
+  `TTL` int(32) NOT NULL,
   `type` int(8) NOT NULL,
   `IPv4` varchar(32) COLLATE utf8_bin NOT NULL,
-  `IPv6` varchar(32) COLLATE utf8_bin NOT NULL,
+  `IPv6` varchar(128) COLLATE utf8_bin NOT NULL,
   `domain` varchar(100) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `domain` (`domain`),
-  CONSTRAINT `DNSRECORD_ibfk_1` FOREIGN KEY (`domain`) REFERENCES `DOMAIN` (`name`)
+  `status` int(8) NOT NULL,
+  PRIMARY KEY (`domain`,`name`),
+  CONSTRAINT `DNSRECORD_ibfk_1` FOREIGN KEY (`domain`) REFERENCES `DOMAIN` (`fullname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `DNSRECORD` (`name`, `TTL`, `type`, `IPv4`, `IPv6`, `domain`, `status`) VALUES
+('email', 1800, 1,  '192.168.132.2',  '', 'ITU.org',  0),
+('nameserver',  1800, 0,  '192.168.0.1',  '', 'ITU.org',  0);
 
 DROP TABLE IF EXISTS `DOMAIN`;
 CREATE TABLE `DOMAIN` (
@@ -65,14 +66,15 @@ CREATE TABLE `DOMAIN` (
   `state` int(8) NOT NULL,
   `tld` varchar(32) COLLATE utf8_bin NOT NULL,
   `client` int(32) NOT NULL,
-  PRIMARY KEY (`name`),
+  `fullname` varchar(100) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`fullname`),
   KEY `client` (`client`),
   CONSTRAINT `DOMAIN_ibfk_1` FOREIGN KEY (`client`) REFERENCES `CLIENT` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `DOMAIN` (`name`, `expiration`, `state`, `tld`, `client`) VALUES
-('ITU', '2016-01-01', 0,  'org',  1),
-('domain',  '2015-01-01', 0,  'cz', 1);
+INSERT INTO `DOMAIN` (`name`, `expiration`, `state`, `tld`, `client`, `fullname`) VALUES
+('ITU', '2016-01-01', 0,  'org',  1,  'ITU.org'),
+('domain',  '2015-01-01', 0,  'cz', 1,  'domain.cz');
 
 DROP TABLE IF EXISTS `FTPACCOUNT`;
 CREATE TABLE `FTPACCOUNT` (
@@ -111,8 +113,9 @@ INSERT INTO `MAILBOX` (`alias`, `password`, `type`, `webhosting`, `used`, `size`
 ('info',  UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  0,  1,  95, 100),
 ('test',  UNHEX('6E017B5464F820A6C1BB5E9F6D711A667A80D8EA'),  1,  1,  20, 100),
 ('test1', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
-('test2', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
-('test3', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100);
+('test2', UNHEX('6973613230313400000000000000000000000000'),  2,  1,  0,  100),
+('test3', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
+('test65',  UNHEX('6973613230313400000000000000000000000000'),  1,  1,  0,  100);
 
 DROP TABLE IF EXISTS `WEBHOSTING`;
 CREATE TABLE `WEBHOSTING` (
@@ -129,4 +132,4 @@ CREATE TABLE `WEBHOSTING` (
 INSERT INTO `WEBHOSTING` (`id`, `expiration`, `type`, `state`, `client`) VALUES
 (1, '2016-01-01', 1,  1,  1);
 
--- 2014-11-22 22:16:28
+-- 2014-11-23 12:43:30

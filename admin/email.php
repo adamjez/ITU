@@ -36,7 +36,6 @@ if(isset($_POST['delSubmit'])){
   require('db.php');
 
   $alias = ($_POST['delAlias']);
-  $type = ($_POST['type']);
 
   $delItemSuccess = deleteEmailAdress($webhosting, $alias);
 }
@@ -49,7 +48,7 @@ if(isset($_POST['editSubmit'])){
   $alias = ($_POST['editAlias']); $password = sha1(($_POST['editPassword']));
   $type = ($_POST['editType']);
 
-  if(!isset($_POST['type']) || strlen(trim($_POST['editAlias'])) < 2 ||
+  if(!isset($_POST['editType']) || strlen(trim($_POST['editAlias'])) < 2 ||
     strlen(trim($_POST['editPassword'])) < 4)
     $editItemSuccess = false;
   else
@@ -133,12 +132,6 @@ if ($editItemSuccess): ?>
 </div>
 
 <?php endif; } ?>
-<style type="text/css">
-#addForm .emailInputGroup .form-control-feedback {
-    top: 0;
-    right: 105px;
-}
-</style>
   <h2>New Mailbox</h2>
   <div class="panel panel-default">
     <div class="panel-body">
@@ -147,7 +140,7 @@ if ($editItemSuccess): ?>
           <label for="inputAddress" class="col-sm-2 control-label">Address</label>
           <div class="col-sm-10 emailInputGroup">
             <div class="input-group">
-              <input name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
+              <input data-bv-remote-delay="10000" name="alias" type="text" class="form-control" id="inputAddress" placeholder="Mailbox address"
               <?php if (isset($addError) and !$addError) echo('value="'.$POST_alias.'"'); ?> >
               <span class="input-group-addon">@<?php echo($_SESSION['domain']);?></span>
             </div>
@@ -238,11 +231,11 @@ if ($editItemSuccess): ?>
   <h2 ng-show="mailbox.edit" id="edit">Edit mailbox</h2>
   <div ng-show="mailbox.edit" class="panel panel-default">
     <div class="panel-body">
-      <form class="form-horizontal" role="form" method="post">
+      <form class="form-horizontal" role="form" method="post" id="editForm">
         <input type="hidden" name="editOldAlias" value="{{mailbox.address}}"/>
           <div class="form-group">
           <label for="inputAddress" class="col-sm-2 control-label">Address</label>
-          <div class="col-sm-10">
+          <div class="col-sm-10 emailInputGroup">
             <div class="input-group">
               <input name="editAlias" type="text" class="form-control" id="inputAddress" value="{{mailbox.address}}">
               <span class="input-group-addon">@<?php echo($_SESSION['domain']);?></span>
@@ -280,7 +273,15 @@ if ($editItemSuccess): ?>
     </div>
   </div>
 </div>
-
+<style type="text/css">
+#editForm .emailInputGroup .form-control-feedback,
+#addForm .emailInputGroup .form-control-feedback {
+    top: 0;
+    right: 105px;
+}
+</style>
+<script src="js/angular.min.js"></script>
+<script src="js/app.js"></script>
 <script>
 $(document).ready(function() {
     $('#addForm')
@@ -310,6 +311,50 @@ $(document).ready(function() {
                     }
                 },
                 type: {
+                    feedbackIcons: false,
+                    validators: {
+                        notEmpty: {
+                            message: 'The type is required'
+                        }
+                    }
+                },
+            }
+        })
+        .on('click', 'button[data-toggle]', function() {
+            var $target = $($(this).attr('data-toggle'));
+            $target.toggle();
+            if (!$target.is(':visible')) {
+                // Enable the submit buttons in case additional fields are not valid
+                $('#togglingForm').data('bootstrapValidator').disableSubmitButtons(false);
+            }
+        });
+        $('#editForm')
+        .bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                editAlias: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The alias is required'
+                        }
+                    }
+                },
+                editPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required'
+                        },
+                        stringLength: {
+                            message: 'Password have to contain at least 4 characters',
+                            min: 4
+                        }
+                    }
+                },
+                editType: {
                     feedbackIcons: false,
                     validators: {
                         notEmpty: {
