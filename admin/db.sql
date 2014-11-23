@@ -57,7 +57,8 @@ CREATE TABLE `DNSRECORD` (
 
 INSERT INTO `DNSRECORD` (`name`, `TTL`, `type`, `IPv4`, `IPv6`, `domain`, `status`) VALUES
 ('email', 1800, 1,  '192.168.132.2',  '', 'ITU.org',  0),
-('nameserver',  1800, 0,  '192.168.0.1',  '', 'ITU.org',  0);
+('nameserver',  1800, 0,  '192.168.0.1',  '', 'ITU.org',  0),
+('test',  1800, 0,  '192.168.132.2',  '', 'ITU.org',  0);
 
 DROP TABLE IF EXISTS `DOMAIN`;
 CREATE TABLE `DOMAIN` (
@@ -117,6 +118,17 @@ INSERT INTO `MAILBOX` (`alias`, `password`, `type`, `webhosting`, `used`, `size`
 ('test3', UNHEX('6973613230313400000000000000000000000000'),  0,  1,  0,  100),
 ('test65',  UNHEX('6973613230313400000000000000000000000000'),  1,  1,  0,  100);
 
+DROP TABLE IF EXISTS `STATS_VISIT`;
+CREATE TABLE `STATS_VISIT` (
+  `hosting` int(32) NOT NULL,
+  `year` int(32) NOT NULL,
+  `month` int(32) NOT NULL,
+  `count` int(32) NOT NULL,
+  PRIMARY KEY (`hosting`,`year`,`month`),
+  CONSTRAINT `STATS_VISIT_ibfk_1` FOREIGN KEY (`hosting`) REFERENCES `WEBHOSTING` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
 DROP TABLE IF EXISTS `WEBHOSTING`;
 CREATE TABLE `WEBHOSTING` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
@@ -132,4 +144,4 @@ CREATE TABLE `WEBHOSTING` (
 INSERT INTO `WEBHOSTING` (`id`, `expiration`, `type`, `state`, `client`) VALUES
 (1, '2016-01-01', 1,  1,  1);
 
--- 2014-11-23 12:43:30
+-- 2014-11-23 22:15:56
