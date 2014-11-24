@@ -16,7 +16,7 @@
         </tr>
         <tr>
           <td>Advertisement</td>
-          <td>$_NOW</td>
+          <td>10.12.2015</td>
           <td>
             <a role="button" class="btn btn-info" target="_blank" href="services.xml">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info
@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <td>Webhosting</td>
-          <td>$_NOW</td>
+          <td>10.1.2015</td>
           <td>
             <a role="button" class="btn btn-info" target="_blank" href="services.xml">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info
@@ -44,7 +44,7 @@
         </tr>
         <tr>
           <td>Domain</td>
-          <td>$_NOW</td>
+          <td>22.8.2015</td>
           <td>
             <a role="button" class="btn btn-info" target="_blank" href="services.xml">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info
@@ -58,7 +58,7 @@
         </tr>
         <tr>
           <td>Storage capacity + 10 GB</td>
-          <td>$_NOW</td>
+          <td>28.2.2014</td>
           <td>
             <a role="button" class="btn btn-info" target="_blank" href="services.xml">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Info
