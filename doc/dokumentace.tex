@@ -29,7 +29,7 @@ unicode,linkcolor=black]{hyperref}
              Správa hostingu}
       \vfill
     \end{center}
-    \Large{Roman Blanco (xblanc01) - kapitán týmu \hfill 24.10.2014 \\
+    \Large{Roman Blanco (xblanc01) - kapitán týmu \hfill 24.11.2014 \\
            Adam Jež (xjezad00)}
 
   \end{titlepage}
@@ -50,10 +50,10 @@ unicode,linkcolor=black]{hyperref}
     V~současnosti již existuje mnoho řešení uživatelských rozhraní pro správu
     hostingu.
 
-    Při vyhledávání inspiračního materiálu jsme se zaměřili na vlastní práci s
-    rozhraním - přehledost obsahu, způsob práce s daty a jejich řazení.
+    Při vyhledávání inspiračního materiálu jsme se zaměřili na vlastní práci
+s~rozhraním - přehledost obsahu, způsob práce s~daty a jejich řazení.
     Při návrhu vlastního rozhraní jsme se snažili vyvarovat případných chyb,
-    které jsme nalézali v existujících řešeních. Z tohoto hlediska nám
+    které jsme nalézali v~existujících řešeních. Z~tohoto hlediska nám
     materiál poskytl jak pozitivní, tak i negativní inspiraci.  Jako studijní
     materiál nám sloužilo především rozhraní webhostingů roští.cz a wedos.cz \\
     \begin{figure}[ht]
@@ -117,31 +117,31 @@ unicode,linkcolor=black]{hyperref}
 
     Klíčovou vlastností administrace webhostingu by měla být přehlednost. Snažili jsme se
     vytvořit prostředí tak, aby obsahovalo pouze potřebné prvky a neodvádělo
-    pozornost uživatele k částem, se kterými v daném úkonu není třeba pracovat.
+    pozornost uživatele k~částem, se kterými v~daném úkonu není třeba pracovat.
 
-    K vytvoření přehledného prostředí jsme využili možnosti CSS/JS knihovny
+    K~vytvoření přehledného prostředí jsme využili možnosti CSS/JS knihovny
     Twitter Bootstrap na všech vytvořených stránkách.
     Pro lepší znázornění dat jsme také, na stránce obsahující statistiky, použili
     JavaScriptovou knihovnu charts.js, která vytváří pohledné interaktivní grafy.
 
     Námi vytvořená administrace webhosingu obsahuje 4 hlavní části pro řízení
-    webhostingu -- sekce pro správu FTP účtů, emailových schránek, MySQL databází
-    a DNS záznamů. Další části jsou již zmíněné statistiky, s informacemi o
-    uživatelích navštěvující hostovaný web. Vlastníkovi hostingu tyto informace
-    mohou posloužit například k optimalizaci svého obsahu pro získání vyšší návštěvnosti.
+    webhostingu \,--\, sekce pro správu FTP účtů, emailových schránek, MySQL databází
+    a DNS záznamů. Další části jsou již zmíněné statistiky, s~informacemi
+o~uživatelích navštěvující hostovaný web. Vlastníkovi hostingu tyto informace
+    mohou posloužit například k~optimalizaci svého obsahu pro získání vyšší návštěvnosti.
 
-    Poslední částí administrace webhostingu je sekce s nastavením, kde lze měnit přihlašovací
+    Poslední částí administrace webhostingu je sekce s~nastavením, kde lze měnit přihlašovací
     údaje a notifikace systému, ale také zakoupit či prodloužit služby hostingu
-    nebo získat podrobnější informace o již zakoupených službách.
+    nebo získat podrobnější informace o~již zakoupených službách.
 
     \subsection{Dosavadní implementace}
 
-    Kostra webových stránek je připravena. Jednotlivé sekce, včetně stránky s přihlašováním jsou
+    Kostra webových stránek je připravena. Jednotlivé sekce, včetně stránky s~přihlašováním jsou
     obsahově a funkčně hotové. Předpokládáme, že tyto části čekají už jen mírné kosmetické
-    úpravy. Je potřeba se rozhodnout, co v zadání znamená pokyn vytvořit přepínání mezi více hostovanými doménami. 
+    úpravy. Je potřeba se rozhodnout, co v~zadání znamená pokyn vytvořit přepínání mezi více hostovanými doménami. 
     Musíme si ujasnit, jakým způsobem implementovat tuto funkci.
 
-    V projektu aktuálně využíváme následující technologie:
+    V~projektu aktuálně využíváme následující technologie:
     \begin{description}
       \item[charts.js] knihovna umožňující jednoduché vytváření grafů
       \item[AngularJS] knihovna umožňující vytváření interaktivnějších stránek
@@ -157,10 +157,10 @@ unicode,linkcolor=black]{hyperref}
     \end{description}
 
   \section{Testování}
-  Dosavadní testování bylo prováděno pouze v rámci týmu. Následující závěrečné
+  Dosavadní testování bylo prováděno pouze v~rámci týmu. Následující závěrečné
   testování rozdělíme do dvou částí. 
 
-  První část se skládá z vytvoření dotazníku, 
+  První část se skládá z~vytvoření dotazníku, 
   který bude obsahovat taktéž úkoly pro dotazované. Dotazník pošleme širší skupině
   převážně studentů (jelikož jsme se na ně při vývoji zaměřili). Dotazník bude obsahovat otázky:
   
@@ -173,26 +173,26 @@ unicode,linkcolor=black]{hyperref}
   Následuje řada úkonů
 
   \begin{itemize}
-    \item Jaký máte z webhostingu pocit?
-    \item Cítil jste se v nějakou chvíli ztracený?
-    \item Měl jste s něčím v nějakou chvíli problém?
-    \item Ohodnoťte, prosím, jak jste spokojený s webhostingem
+    \item Jaký máte z~webhostingu pocit?
+    \item Cítil jste se v~nějakou chvíli ztracený?
+    \item Měl jste s~něčím v~nějakou chvíli problém?
+    \item Ohodnoťte, prosím, jak jste spokojený s~webhostingem
     \item Ohodnoťte, prosím vzhled webhostingu.
     \item Dokázal byste takovýto system používat?
     \item Napadá vás, co by se dalo zlepšit?
   \end{itemize}
 
-  Druha cast se sklada z osobniho pristupu k dotazovanym. Hlavnim prinosem tohoto pristupu 
-  schledavame v podrobnejsim vystupu takovych to testu. Budou probihat podobne jak prvni, 
-  s rozdilem, ze zadavatel testu bude merit trvani jednotlivych ukon a sledovat, kde uzivatel
+  Druha cast se sklada z~osobniho pristupu k~dotazovanym. Hlavnim prinosem tohoto pristupu 
+  schledavame v~podrobnejsim vystupu takovych to testu. Budou probihat podobne jak prvni, 
+  s~rozdilem, ze zadavatel testu bude merit trvani jednotlivych ukon a sledovat, kde uzivatel
   upira svuj pohled. Zda-li neprehlizi dulezite casti navigace, nebo zda-li se nedostal 
   do bodu, kde by se ztratil.
 
   Očekáváme, že výsledky testů nám potvrdí úspěch našich počátečních cílů. Zaměřili jsme se
   na jednoduchost, rychlost a přehlednost. Rádi bychom tedy, kdyby byl uživatel se 
-  systémem spokojený, na pohled se mu líbil a práce s ním byla dostatečně efektivní a rychlá.
+  systémem spokojený, na pohled se mu líbil a práce s~ním byla dostatečně efektivní a rychlá.
   Jelikož jsme použili minimum prvků, očekáváme také, že si uživatel rychle na systém
-  zvykne a navigace v něm mu nebude dělat problém.
+  zvykne a navigace v~něm mu nebude dělat problém.
 
   %\section{Závěr}
 
@@ -217,7 +217,7 @@ unicode,linkcolor=black]{hyperref}
       \end{center}
     \end{figure}
 
-    \subsection{Ukázky z administrace}
+    \subsection{Ukázky z~administrace}
 
     \begin{figure}[ht]
       \begin{center}
@@ -264,7 +264,7 @@ unicode,linkcolor=black]{hyperref}
     \begin{figure}[ht]
       \begin{center}
         \includegraphics[width=10cm]{graphs}
-        \caption{zobrazení dat o návštěvnosti}
+        \caption{zobrazení dat o~návštěvnosti}
       \end{center}
     \end{figure}
 
