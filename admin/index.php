@@ -30,6 +30,7 @@ if(isset($_POST['submit'])){
     $_SESSION['name'] = $row['name']; 
     $_SESSION['surname'] = $row['surname']; 
     $_SESSION['id'] = $row['ID']; 
+
   
     if($_POST['backSite'] !== "")
       $site = "LOCATION:manage.php?&site=".$_POST['backSite'];

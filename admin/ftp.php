@@ -260,6 +260,9 @@ $(document).ready(function() {
                     validators: {
                         notEmpty: {
                             message: 'The e-mail address is required'
+                        },
+                        emailAddress: {
+                            message: 'The e-mail address is not valid'
                         }
                     }
                 },

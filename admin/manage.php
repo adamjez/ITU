@@ -58,7 +58,7 @@ if(!isset($_SESSION['active_domain']))
         </div>
         <p class="navbar-text navbar-justified">Webhosting administration</p>
         <p class="navbar-text navbar-right">
-          Signed in as <a href="#" class="navbar-link"><?php echo($_SESSION['name'] . ' ' . $_SESSION['surname']); ?></a>
+          Signed in as <a href="manage.php?site=setting-acc" class="navbar-link"><?php echo($_SESSION['name'] . ' ' . $_SESSION['surname']); ?></a>
           &nbsp;&nbsp;
           <span class="badge">14</span>
           &nbsp;&nbsp;
@@ -95,6 +95,11 @@ if(!isset($_SESSION['active_domain']))
             <li role="presentation" 
               <?php if(isset($_GET['site']) and $_GET['site'] == 'stats'): ?>class="active" <?php endif; ?>>
               <a href="manage.php?site=stats">Stats</a>
+            </li>
+
+            <li style="padding-top:20px;" role="presentation" 
+              <?php if(isset($_GET['site']) and ($_GET['site'] == 'setting-acc' or $_GET['site'] == 'setting-srvc')): ?>class="active" <?php endif; ?>>
+              <a href="manage.php?site=setting-acc">Accounts setting</a>
             </li>
           </ul>
         </div>

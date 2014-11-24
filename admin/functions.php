@@ -80,6 +80,45 @@ function getWebHosting($id)
 	return null;
 }
 
+function getUser($id)
+{
+	if($id == null)
+		return null;
+
+	require('db.php');
+	$qz = "SELECT email, phone FROM CLIENT WHERE id='".$id."' LIMIT 1" ;
+	$result = mysqli_query($conn,$qz);
+
+	if ($result && $result->num_rows != 0){
+		return $result->fetch_assoc();
+	}
+
+	return null;
+}
+
+
+
+function updateUserInfo($id, $email, $phone)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "UPDATE CLIENT SET email = '".$email."', phone = '".$phone."' WHERE id='".$id."'";
+	return $conn->query($qz);
+
+}
+
+function updateUserPassword($id, $newpass)
+{
+	if($id == null)
+		return false;
+
+	require('db.php');
+	$qz = "UPDATE CLIENT SET password = UNHEX('".$newpass."') WHERE id='".$id."' ";
+	return $conn->query($qz);
+
+}
 
 function getDNSRecords($name)
 {

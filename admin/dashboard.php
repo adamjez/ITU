@@ -45,7 +45,7 @@ if(!isset($_SESSION['active_domain']))
         </div>
         <p class="navbar-text navbar-justified">Webhosting administration</p>
         <p class="navbar-text navbar-right">
-          Signed in as <a href="#" class="navbar-link"><?php echo($_SESSION['name'] . ' ' . $_SESSION['surname']); ?></a>
+          Signed in as <a href="manage.php?site=setting-acc" class="navbar-link"><?php echo($_SESSION['name'] . ' ' . $_SESSION['surname']); ?></a>
           &nbsp;&nbsp;
           <span class="badge">14</span>
           &nbsp;&nbsp;
@@ -112,7 +112,7 @@ if(!isset($_SESSION['active_domain']))
               <div class="caption">
                 <h3>Account settings</h3>
                 <p><small>change password, contact details, notifications</small></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
+                <p><a href="manage.php?site=setting-acc" class="btn btn-primary" role="button">Open</a></p>
               </div>
             </div>
           </div>
