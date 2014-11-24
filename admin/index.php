@@ -64,12 +64,15 @@ if(isset($_POST['submit'])){
     <style>
       body {
         padding-bottom: 40px;
+        background-image: url('background1.png');
+        background-size: cover;
       }
       .form-signin {
         background-color: #eee;
         max-width: 330px;
         padding: 15px;
         margin: 0 auto;
+        border-radius: 10px;
       }
       .form-signin .form-signin-heading,
       .form-signin .checkbox {
@@ -99,6 +102,12 @@ if(isset($_POST['submit'])){
         margin-bottom: 10px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+      }
+      .jumbotron {
+        background-color: transparent;
+      }
+      .page-header {
+        border-bottom: 1px solid #999;
       }
     </style>
   </head>
