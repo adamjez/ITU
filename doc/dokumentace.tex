@@ -115,38 +115,38 @@ unicode,linkcolor=black]{hyperref}
         \end{itemize}
     \end{description}
 
-    Klíčovou vlastností administrace by měla být přehlednost. Snažili jsme se
+    Klíčovou vlastností administrace webhostingu by měla být přehlednost. Snažili jsme se
     vytvořit prostředí tak, aby obsahovalo pouze potřebné prvky a neodvádělo
-    pozornost uživatele na části, se kterými v daném úkonu není třeba pracovat.
+    pozornost uživatele k částem, se kterými v daném úkonu není třeba pracovat.
 
-    K vytvoření přehledného prostředí jsme využili možností CSS/JS knihovny
+    K vytvoření přehledného prostředí jsme využili možnosti CSS/JS knihovny
     Twitter Bootstrap na všech vytvořených stránkách.
-    Pro lepší vyjádření dat jsme také, na stránce obsahující statistiky, použili
-    JavaScriptovou knihovnu charts.js, která vytváří pohledné interaktivní grafy
+    Pro lepší znázornění dat jsme také, na stránce obsahující statistiky, použili
+    JavaScriptovou knihovnu charts.js, která vytváří pohledné interaktivní grafy.
 
-    Námi vytvořená administrace webhosingu obsahuje 4 hlavních částí pro řízení
+    Námi vytvořená administrace webhosingu obsahuje 4 hlavní části pro řízení
     webhostingu -- sekce pro správu FTP účtů, emailových schránek, MySQL databází
     a DNS záznamů. Další části jsou již zmíněné statistiky, s informacemi o
     uživatelích navštěvující hostovaný web. Vlastníkovi hostingu tyto informace
-    mohou posloužit například k optimalizaci svého obsahu ke získání vyšší návštěvnosti.
+    mohou posloužit například k optimalizaci svého obsahu pro získání vyšší návštěvnosti.
 
-    Poslední částí webhostingu je sekce s nastavením, kde lze měnit přihlašovací
-    údaje, notifikace systému, ale také zakoupit či prodloužit služby hostingu
+    Poslední částí administrace webhostingu je sekce s nastavením, kde lze měnit přihlašovací
+    údaje a notifikace systému, ale také zakoupit či prodloužit služby hostingu
     nebo získat podrobnější informace o již zakoupených službách.
 
-    Dosavadni implementace:
-    Kostra webovych stranek je hotova. Jednotlive sekce, vcetne stranky s prihlasovanim jsou
-    obsahove a funkcne hotove. Predpokladame, ze tyto casti cekaji uz jen mirne, komseticko
-    upravy. Je potreba se rozhodnout, jak vytvorit prepinani mezi vice hostovanymi domenami. 
-    Neni nam jasne, co to presne znamena a jak to lze pochopit.
+    \subsection{Dosavadní implementace}
 
+    Kostra webových stránek je připravena. Jednotlivé sekce, včetně stránky s přihlašováním jsou
+    obsahově a funkčně hotové. Předpokládáme, že tyto části čekají už jen mírné kosmetické
+    úpravy. Je potřeba se rozhodnout, co v zadání znamená pokyn vytvořit přepínání mezi více hostovanými doménami. 
+    Musíme si ujasnit, jakým způsobem implementovat tuto funkci.
 
-    V projektu aktualne vyuzivame nasledujici technologie:
+    V projektu aktuálně využíváme následující technologie:
     \begin{description}
       \item[charts.js] knihovna umožňující jednoduché vytváření grafů
-      \item[angularJS] knihovna umožňující vytvareni interaktivnejsich stranek
-      \item[bootstrap] javascriptovy framework pro urychleni a usnadneni vytvareni vzhledu
-      \item[bootstrapvalidator] knihovna pro vytvareni interaktivnich formularu
+      \item[AngularJS] knihovna umožňující vytváření interaktivnějších stránek
+      \item[Twitter Bootstrap] JS/CSS framework pro urychlení a usnadnění vytváření vzhledu
+      \item[BootstrapValidator] knihovna pro vytvareni interaktivnich formularu
       \item[MySQL] dotazovací jazyk pro získání informací spojené s~uživatelem
       \item[PHP] skriptovací jazyk běžně používaný pro programování
                    dynamických webových stránek
@@ -157,26 +157,30 @@ unicode,linkcolor=black]{hyperref}
     \end{description}
 
   \section{Testování}
-  Dosavadni testovani bylo provadeno pouze v ramci tymu. Nasledujicim zaverecne
-  testovani rozdelime do dvou casti. 
+  Dosavadní testování bylo prováděno pouze v rámci týmu. Následující závěrečné
+  testování rozdělíme do dvou částí. 
 
-  Prvni cast se sklada z vytvoreni dotazniku, 
-  ktery bude obsahovat taktez ukoly pro dotazovane. Dotaznik posleme sirsi skupine
-  prevazne studentu (jelikoz jsme se na ne pri vyvoji zamerili). Dotaznik bude obsahovat otazky:
-  Kolik je vam let?
-  Jste studentem?
-  Vyuzivate nejakych hostingovych sluzeb, pripadne jakych?
-  Co vas zaujalo na prvni pohled?
+  První část se skládá z vytvoření dotazníku, 
+  který bude obsahovat taktéž úkoly pro dotazované. Dotazník pošleme širší skupině
+  převážně studentů (jelikož jsme se na ně při vývoji zaměřili). Dotazník bude obsahovat otázky:
+  
+  \begin{itemize}
+    \item Kolik je vám let?
+    \item Jste studentem?
+    \item Využíváte nějakých hostingových služeb, připadně jakých? Co vas zaujalo na první pohled?
+  \end{itemize}
 
-  Nasleduje rada ukonu....
+  Následuje řada úkonů
 
-  Jaky z webhostingu mate pocit?
-  Citil jste se v nejakou chvili ztraceny?
-  Mel jste s necim v nejakou chvili problem?
-  Ohodnotte, prosim, jak jste spokojony s webhostingem
-  Ohodnotte, prosim vzhled webhostinu.
-  Dokazal byste takovy to system pouzivat?
-  Napada vas, co by se dalo zlepsit?
+  \begin{itemize}
+    \item Jaký máte z webhostingu pocit?
+    \item Cítil jste se v nějakou chvíli ztracený?
+    \item Měl jste s něčím v nějakou chvíli problém?
+    \item Ohodnoťte, prosím, jak jste spokojený s webhostingem
+    \item Ohodnoťte, prosím vzhled webhostingu.
+    \item Dokázal byste takovýto system používat?
+    \item Napadá vás, co by se dalo zlepšit?
+  \end{itemize}
 
   Druha cast se sklada z osobniho pristupu k dotazovanym. Hlavnim prinosem tohoto pristupu 
   schledavame v podrobnejsim vystupu takovych to testu. Budou probihat podobne jak prvni, 
@@ -184,11 +188,12 @@ unicode,linkcolor=black]{hyperref}
   upira svuj pohled. Zda-li neprehlizi dulezite casti navigace, nebo zda-li se nedostal 
   do bodu, kde by se ztratil.
 
-  Ocekavame, ze vysledky testu nam potvrdi uspech nasich pocatecnich cilu. Zamerili jsme 
-  se na jednoduchost, rychlost a prehlednost. Radi bychom tedy, kdyby byl uzivatel se 
-  systemem spokojeny, na pohled se mu libil a prace s nim by byla dostatecne efektivni a rychla.
-  Jelikoz jsme pouzili minimum prvku, ocekavame take, ze si uzivatel rychle na system
-  zvykne a navigace v nem, mu nebude delat problem.
+  Očekáváme, že výsledky testů nám potvrdí úspěch našich počátečních cílů. Zaměřili jsme se
+  na jednoduchost, rychlost a přehlednost. Rádi bychom tedy, kdyby byl uživatel se 
+  systémem spokojený, na pohled se mu líbil a práce s ním byla dostatečně efektivní a rychlá.
+  Jelikož jsme použili minimum prvků, očekáváme také, že si uživatel rychle na systém
+  zvykne a navigace v něm mu nebude dělat problém.
+
   %\section{Závěr}
 
   \section{Reference}
