@@ -124,7 +124,7 @@ if ($delItemSuccess): ?>
                 <div class="form-group">
           <label for="inputPrimaryIp" class="col-sm-2 control-label">TTL<br \>Default: 1800</label>
           <div class="col-sm-10">
-            <input name="addTTL" type="text" class="form-control" placeholder="Time to live"
+            <input name="addTTL" type="number" class="form-control" placeholder="Time to live"
             <?php if (isset($addError) and $addError) echo('value="'.$POST_ttl.'"'); ?> >
 
           </div>
@@ -215,13 +215,6 @@ $(document).ready(function() {
                             message: 'The type is required'
                         }
                     }
-                },
-                addTTL {
-                  validators: {
-                    integer: {
-                      message: 'TTL have to contains only numbers'
-                    }
-                  }
                 },
             }
         })
