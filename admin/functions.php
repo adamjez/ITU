@@ -126,7 +126,7 @@ function getDNSRecords($name)
 		return null;
 
 	require('db.php');
-	$qz = "SELECT name, type, status FROM DNSRECORD WHERE domain='".$name."' " ;
+	$qz = "SELECT name, type, status, TTL FROM DNSRECORD WHERE domain='".$name."' " ;
 	$result = mysqli_query($conn,$qz);
 
 	if ($result && $result->num_rows != 0){
@@ -146,14 +146,14 @@ function deleteDNSRecord($name, $domain)
 	return $conn->query($qz);
 }
 
-function addDNSRecord($domain, $name, $ipv4, $type)
+function addDNSRecord($domain, $name, $ipv4, $type, $ttl)
 {
 	if($domain == null)
 		return false;
 
 	require('db.php');
 	$qz = "INSERT INTO `DNSRECORD` (name, TTL, type, IPv4, IPv6, domain, status)
-			VALUES ('".$name."', '1800', '".$type."', '".$ipv4."', '', '".$domain."', '0')";
+			VALUES ('".$name."', '".$TTL."', '".$type."', '".$ipv4."', '', '".$domain."', '0')";
 	return $conn->query($qz);
 }
 

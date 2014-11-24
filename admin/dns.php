@@ -21,9 +21,9 @@ if(isset($_POST['addSubmit'])){
     $ip = trim($_POST['addIp']); 
     $name = trim($_POST['addName']);
     $type = $_POST['addType'];
+    $ttl = $_POST['addTTL'];
 
-
-    $addItemSuccess = addDNSRecord($_SESSION['domain'], $name, $ip, $type);
+    $addItemSuccess = addDNSRecord($_SESSION['domain'], $name, $ip, $type, $ttl);
   }
 
   if((isset($addItemSuccess) &&!$addItemSuccess) || $formNotComplete) 
@@ -31,6 +31,7 @@ if(isset($_POST['addSubmit'])){
     $POST_type = isset($_POST['addType']) ? $_POST['addType'] : "";
     $POST_ip = isset($_POST['addIp']) ? $_POST['addIp'] : "";
     $POST_name = isset($_POST['addName']) ? $_POST['addName'] : "";
+    $POST_ttl = isset($_POST['addTTL']) ? $_POST['addTTL'] : "";
     $addError = true;
   }
 
@@ -120,6 +121,14 @@ if ($delItemSuccess): ?>
             <?php if (isset($addError) and $addError) echo('value="'.$POST_ip.'"'); ?> >
           </div>
         </div>
+                <div class="form-group">
+          <label for="inputPrimaryIp" class="col-sm-2 control-label">TTL<br \>Default: 1800</label>
+          <div class="col-sm-10">
+            <input name="addTTL" type="text" class="form-control" placeholder="Time to live"
+            <?php if (isset($addError) and $addError) echo('value="'.$POST_ttl.'"'); ?> >
+
+          </div>
+        </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <button name="addSubmit" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"> Add DNS record</span></button>
@@ -136,6 +145,7 @@ if ($delItemSuccess): ?>
           <td>Name</td>
           <td>Status</td>
           <td>Type</td>
+          <td>TTL</td>
           <td></td>
         </tr>
         <?php 
@@ -148,6 +158,7 @@ if ($delItemSuccess): ?>
           <td><strong><?php echo($dns['name']); ?></strong></td>
           <td><?php echo($StatusDict[$dns['status']]); ?></td>
           <td><strong><?php echo($DnsTypeDict[$dns['type']]); ?></strong></td>
+          <td><?php echo($dns['TTL']); ?></td>
           <td>
             <form class="form-horizontal" role="form" method="post">
               <input type="hidden" name="delName" value="<?php echo($dns['name']); ?>"/>
@@ -204,6 +215,13 @@ $(document).ready(function() {
                             message: 'The type is required'
                         }
                     }
+                },
+                addTTL {
+                  validators: {
+                    integer: {
+                      message: 'TTL have to contains only numbers'
+                    }
+                  }
                 },
             }
         })

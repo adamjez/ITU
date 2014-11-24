@@ -132,10 +132,63 @@ unicode,linkcolor=black]{hyperref}
 
     Poslední částí webhostingu je sekce s nastavením, kde lze měnit přihlašovací
     údaje, notifikace systému, ale také zakoupit či prodloužit služby hostingu
-    nebo získat podrobnější informace o již zakoupených služnbách
+    nebo získat podrobnější informace o již zakoupených službách.
 
-  %\section{Testování}
+    Dosavadni implementace:
+    Kostra webovych stranek je hotova. Jednotlive sekce, vcetne stranky s prihlasovanim jsou
+    obsahove a funkcne hotove. Predpokladame, ze tyto casti cekaji uz jen mirne, komseticko
+    upravy. Je potreba se rozhodnout, jak vytvorit prepinani mezi vice hostovanymi domenami. 
+    Neni nam jasne, co to presne znamena a jak to lze pochopit.
 
+
+    V projektu aktualne vyuzivame nasledujici technologie:
+    \begin{description}
+      \item[charts.js] knihovna umožňující jednoduché vytváření grafů
+      \item[angularJS] knihovna umožňující vytvareni interaktivnejsich stranek
+      \item[bootstrap] javascriptovy framework pro urychleni a usnadneni vytvareni vzhledu
+      \item[bootstrapvalidator] knihovna pro vytvareni interaktivnich formularu
+      \item[MySQL] dotazovací jazyk pro získání informací spojené s~uživatelem
+      \item[PHP] skriptovací jazyk běžně používaný pro programování
+                   dynamických webových stránek
+      \item[HTML] značkovací jazyk pro popis webovych stranek
+      \item[CSS] jazyk definujici vzhled HTML elementu
+      \item[XML] značkovací jazyk pro popis dokumentu
+      \item[XSL] jazyk pro vyjádření stylu
+    \end{description}
+
+  \section{Testování}
+  Dosavadni testovani bylo provadeno pouze v ramci tymu. Nasledujicim zaverecne
+  testovani rozdelime do dvou casti. 
+
+  Prvni cast se sklada z vytvoreni dotazniku, 
+  ktery bude obsahovat taktez ukoly pro dotazovane. Dotaznik posleme sirsi skupine
+  prevazne studentu (jelikoz jsme se na ne pri vyvoji zamerili). Dotaznik bude obsahovat otazky:
+  Kolik je vam let?
+  Jste studentem?
+  Vyuzivate nejakych hostingovych sluzeb, pripadne jakych?
+  Co vas zaujalo na prvni pohled?
+
+  Nasleduje rada ukonu....
+
+  Jaky z webhostingu mate pocit?
+  Citil jste se v nejakou chvili ztraceny?
+  Mel jste s necim v nejakou chvili problem?
+  Ohodnotte, prosim, jak jste spokojony s webhostingem
+  Ohodnotte, prosim vzhled webhostinu.
+  Dokazal byste takovy to system pouzivat?
+  Napada vas, co by se dalo zlepsit?
+
+  Druha cast se sklada z osobniho pristupu k dotazovanym. Hlavnim prinosem tohoto pristupu 
+  schledavame v podrobnejsim vystupu takovych to testu. Budou probihat podobne jak prvni, 
+  s rozdilem, ze zadavatel testu bude merit trvani jednotlivych ukon a sledovat, kde uzivatel
+  upira svuj pohled. Zda-li neprehlizi dulezite casti navigace, nebo zda-li se nedostal 
+  do bodu, kde by se ztratil.
+
+  Ocekavame, ze vysledky testu nam potvrdi uspech nasich pocatecnich cilu. Zamerili jsme 
+  se na jednoduchost, rychlost a prehlednost. Radi bychom tedy, kdyby byl uzivatel se 
+  systemem spokojeny, na pohled se mu libil a prace s nim by byla dostatecne efektivni a rychla.
+  Jelikoz jsme pouzili minimum prvku, ocekavame take, ze si uzivatel rychle na system
+  zvykne a navigace v nem, mu nebude delat problem.
   %\section{Závěr}
 
   \section{Reference}
