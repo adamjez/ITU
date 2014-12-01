@@ -3,7 +3,7 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 
-if (session_status() == PHP_SESSION_NONE) {
+if (!isset($_SESSION)) {
     session_start();
 }
 
