@@ -12,6 +12,12 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true)
 }
 
 include('functions.php');
+if(isset($_POST['DomainSelect']))
+{
+  $_SESSION['domain'] = $_POST['DomainSelect'];
+  $_SESSION['active_domain'] = $_POST['DomainSelect'];
+}
+
 if(!isset($_SESSION['active_domain']))
 {
   $domain = getDefaultDomain($_SESSION['id']);
@@ -41,7 +47,23 @@ if(!isset($_SESSION['active_domain']))
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#"><?php echo($_SESSION['domain']);?></a>
+          <p class="navbar-text navbar-justified">Active domain:</p>
+
+          <form method="post" role="form" style="margin:7px 120px 0px 12px" >
+          <select name="DomainSelect" class="form-control" onchange="this.form.submit()">
+          <?php
+            $domains = getDomains($_SESSION['id']);
+
+            foreach($domains as $domain)
+            {
+          ?>
+              <option value="<?php echo($domain['fullname']); ?>"
+              <?php if ($domain['fullname'] ==  $_SESSION['domain']) echo('selected="true"'); ?> ><?php echo($domain['fullname']); ?></option>
+          <?php
+            } 
+          ?>
+          </select>
+          </form>
         </div>
         <p class="navbar-text navbar-justified">Webhosting administration</p>
         <p class="navbar-text navbar-right">

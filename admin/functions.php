@@ -66,6 +66,20 @@ function getDefaultDomain($id)
 	return null;
 }
 
+function getDomains($id)
+{
+	require('db.php');
+	$qz = "SELECT name, tld, state, fullname FROM DOMAIN WHERE client='".$id."'" ;
+	$result = mysqli_query($conn,$qz);
+
+	
+	if ($result && $result->num_rows != 0){
+		return resultToArray($result); 
+	}
+
+	return array();
+}
+
 function getWebHosting($id)
 {
 	require('db.php');
