@@ -2,7 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
-if (session_status() == PHP_SESSION_NONE) {
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -62,7 +62,7 @@ if(!isset($_SESSION['active_domain']))
         <div class="navbar-header">
           <p class="navbar-text navbar-justified">Active domain:</p>
 
-          <form method="post" role="form" style="margin:7px 120px 0px 12px" >
+          <form method="post" role="form" style="display:inline-block;margin:8px;float:left;" >
           <select name="DomainSelect" class="form-control" onchange="this.form.submit()">
           <?php
             $domains = getDomains($_SESSION['id']);
